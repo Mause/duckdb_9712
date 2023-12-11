@@ -39,9 +39,11 @@ public class MemoryLeak {
      * A CSV file in S3 which is compressed with GZIP
      */
     private static final String S3_KEY = "s3://bucket/key.csv.gz"; // TODO: Replace with an S3 URI to compressed VSC file (~100MB in size)
+    private static MemorySnapshot stats;
 
 
     public static void main(final String[] args) throws InterruptedException, SQLException {
+        memoryStats();
 
         // Thread pool setup
         final ExecutorService threadPool = Executors.newFixedThreadPool(CONCURRENCY);
@@ -71,11 +73,21 @@ public class MemoryLeak {
             .whenComplete((v, e) -> threadPool.shutdown())
             .join();
 
+        memoryStats();
         System.out.println("Sleeping for 10 minutes to keep container running to allow diagnostic analysis");
 
         // Sleep for a while to keep app running to monitor memory after workload completes
         Thread.sleep(Duration.ofMinutes(10).toMillis());
 
+    }
+
+    private static void memoryStats() {
+        if (MemoryLeak.stats == null) {
+            MemoryLeak.stats = MemorySnapshot.memoryStats();
+            System.out.println(MemorySnapshot.memoryStats());
+        } else {
+            System.out.println("DIFF: \n" + MemorySnapshot.memoryStats().diff(MemoryLeak.stats));
+        }
     }
 
     private static void quack(final Properties connectionProperties, final int taskNumber) {
