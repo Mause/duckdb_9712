@@ -1,48 +1,55 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-<modelVersion> 4.0.0 </modelVersion>
-<groupId>me.mause</groupId>
-<artifactId>test</artifactId>
-<version>1.0-SNAPSHOT</version>
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>me.mause</groupId>
+	<artifactId>test</artifactId>
+	<version>1.0-SNAPSHOT</version>
 
-<properties>
-	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	<maven.compiler.source>15</maven.compiler.source>
-	<maven.compiler.target>15</maven.compiler.target>
-</properties>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>15</maven.compiler.source>
+		<maven.compiler.target>15</maven.compiler.target>
+	</properties>
 
-<dependencies>
-	<dependency>
-		<groupId>org.duckdb</groupId>
-		<artifactId>duckdb_jdbc</artifactId>
-		<version>0.9.2</version>
-	</dependency>
-</dependencies>
+	<dependencies>
+		<dependency>
+			<groupId>org.duckdb</groupId>
+			<artifactId>duckdb_jdbc</artifactId>
+			<version>0.9.2</version>
+		</dependency>
+	</dependencies>
 
-<build>
-<plugins>
-	<plugin>
-		<artifactId>maven-assembly-plugin</artifactId>
-		<executions>
-			<execution>
-				<phase>package</phase>
-				<goals>
-					<goal>single</goal>
-				</goals>
-			</execution>
-		</executions>
-		<configuration>
-			<archive>
-				<manifest>
-					<addClasspath>true</addClasspath>
-					<mainClass>MemoryLeak</mainClass>
-				</manifest>
-			</archive>
-			<descriptorRefs>
-				<descriptorRef>jar-with-dependencies</descriptorRef>
-			</descriptorRefs>
-		</configuration>
-	</plugin>
-</plugins>
-</build>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>MemoryLeak</mainClass>
+						</manifest>
+					</archive>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>16</source>
+					<target>16</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

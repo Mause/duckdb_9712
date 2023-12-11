@@ -2,7 +2,7 @@ FROM amazoncorretto:17.0.9
 
 WORKDIR /tmp
 
-COPY target/test-1.0-SNAPSHOT.jar app.jar
+COPY target/test-1.0-SNAPSHOT-jar-with-dependencies.jar app.jar
 
 # JMX
 EXPOSE 9003
